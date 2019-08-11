@@ -235,39 +235,6 @@ EOF
     echo "To complete installation, start a new shell (exec -l \$SHELL) or type 'source \"$1\"' in the current one"
 }
 
-function input_yes_no() {
-    while read answer; do
-        case "${answer}" in
-        "Yes" | "y" | "yes" | "")
-            return 0
-            ;;
-        "No" | "n" | "no")
-            return 1
-            ;;
-        *)
-            echo "Please enter 'y' or 'n': "
-            ;;
-        esac
-    done
-}
-
-function ask_for_rc_path() {
-    echo "Enter a path to an rc file to update, or leave blank to use"
-    echo -n "[${DEFAULT_RC_PATH}]: "
-    read filepath
-    if [ "${filepath}" = "" ]; then
-        filepath="${DEFAULT_RC_PATH}"
-    fi
-    RC_PATH="$filepath"
-}
-
-function print_rc_guide() {
-    if [ "${COMPLETION_AVAILABLE}" = "yes" ]; then
-        echo "Source '${YC_BASH_COMPLETION}' in your profile to enable shell command completion for yc."
-    fi
-    echo "Source '${YC_BASH_PATH}' in your profile to add the command line tools to your \$PATH."
-}
-
 if [ "${RC_PATH}" != "" ] ; then
     modify_rc "${RC_PATH}"
     exit 0
@@ -277,14 +244,3 @@ if [ "${AUTO_RC}" = "yes" ]; then
     modify_rc "${DEFAULT_RC_PATH}"
     exit 0
 fi
-
-
-echo -n "Modify profile to update your \$PATH and enable shell command completion? [Y/n] "
-
-if input_yes_no ; then
-    ask_for_rc_path
-    modify_rc "${RC_PATH}"
-else
-    print_rc_guide
-fi
-
