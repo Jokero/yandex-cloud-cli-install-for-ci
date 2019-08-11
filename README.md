@@ -14,12 +14,12 @@ To install the latest stable version of Yandex Cloud CLI:
 
 ```sh
 curl https://raw.githubusercontent.com/Jokero/yandex-cloud-cli-install-for-ci/master/install.sh | bash
-source ~/.bashrc
+export PATH=$PATH:~/yandex-cloud/bin
 ```
 
 To install a specific version:
 ```sh
 curl https://raw.githubusercontent.com/Jokero/yandex-cloud-cli-install-for-ci/master/install.sh > install.sh
 chmod 700 install.sh && YC_VERSION=0.35.0 ./install.sh
-source ~/.bashrc
+export PATH=$PATH:~/yandex-cloud/bin
 ```
